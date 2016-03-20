@@ -38,9 +38,10 @@ public:
 	bool isHPFallBelowZERO();
 
 private:
-
+	const int half_of_width;
 
 	Ellipse Body;
+	Ellipse indicatingHP;
 
 	Circle yolk;
 	std::array<Triangle, 4> eggShell;
@@ -48,6 +49,7 @@ private:
 	EffectManager effects;
 
 	const Vec2 initialCoord[4];
+	const Vec2 indicatingHPCoord[4];
 	Gamepad usingpad;
 
 	void initBroken();

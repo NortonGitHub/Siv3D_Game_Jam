@@ -4,7 +4,9 @@
 
 Player::Player(int n, int all_player)
 	:font(30),
+	half_of_width(Window::Width()/2),
 	initialCoord{ Vec2(52,82),Vec2(580,82),Vec2(52,380),Vec2(580,380) },
+	indicatingHPCoord{ Vec2(half_of_width - 210,410),Vec2(half_of_width - 90,410),Vec2{half_of_width + 30,410},Vec2{half_of_width+150,410} },
 	usingpad(n-1)
 {
 	_wr = 40;
@@ -26,6 +28,9 @@ Player::Player(int n, int all_player)
 
 	yolk.r = Body.axis.x;
 	_isBrokenCompleted = false;
+
+	indicatingHP.setSize(Vec2(60, 90));
+	indicatingHP.setPos(indicatingHPCoord[n - 1]);
 }
 
 void Player::initPlayer(int n)
@@ -39,9 +44,8 @@ void Player::initPlayer(int n)
 	_x = initialCoord[n - 1].x;
 	_y = initialCoord[n - 1].y;
 
-	
-
 	Body.set(_x, _y, _wr / 2, _hr / 2);
+
 }
 
 void Player::initBroken()
