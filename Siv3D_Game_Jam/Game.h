@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enclosure.h"
 #include "Object.h"
+#include "UI.h"
 
 class Game :
 	public SceneBase
@@ -19,10 +20,12 @@ public:
 private:
 	
 	std::vector<Player*> player;
-
+	
 	std::map<std::string, Enclosure*> enclosures;
 	std::vector<Object*> objects;
 
+	std::vector<UI> _hpUI;
+	
 	//std::array<EffectManager*, 20> effects;
 };
 

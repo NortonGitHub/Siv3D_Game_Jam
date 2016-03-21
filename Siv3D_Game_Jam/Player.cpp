@@ -1,12 +1,11 @@
 #include "Player.h"
-
+#include "Collision.h"
 
 
 Player::Player(int n, int all_player)
 	:font(30),
 	half_of_width(Window::Width()/2),
 	initialCoord{ Vec2(52,82),Vec2(580,82),Vec2(52,380),Vec2(580,380) },
-	indicatingHPCoord{ Vec2(half_of_width - 210,410),Vec2(half_of_width - 90,410),Vec2{half_of_width + 30,410},Vec2{half_of_width+150,410} },
 	usingpad(n-1)
 {
 	_wr = 40;
@@ -28,9 +27,6 @@ Player::Player(int n, int all_player)
 
 	yolk.r = Body.axis.x;
 	_isBrokenCompleted = false;
-
-	indicatingHP.setSize(Vec2(60, 90));
-	indicatingHP.setPos(indicatingHPCoord[n - 1]);
 }
 
 void Player::initPlayer(int n)
@@ -120,12 +116,13 @@ void Player::drawNormal()
 
 	effects.draw();
 
-	font(L"‰Á‘¬“x", _accelerationX, L"HP", _hp).draw(20.0, 32.0*num);
+//	font(L"‰Á‘¬“x", _accelerationX, L"HP", _hp).draw(20.0, 32.0*num);
 }
 
 void Player::drawBroken()
 {
 	yolk.draw(color);
+	
 	for (auto es : eggShell) {
 		es.draw(Palette::Whitesmoke);
 	}
@@ -212,6 +209,7 @@ void Player::setMovingDirection()
 		_direction = "stop";
 	}
 }
+
 
 void Player::reflectingDamageToHP(Point opponent)
 {

@@ -1,0 +1,5 @@
+﻿  UI.cpp
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\ui.cpp(17): warning C4100: 'allNum': 引数は関数の本体部で 1 度も参照されません。
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\ui.cpp(35): warning C4458: '_hp' を宣言すると、クラス メンバーが隠蔽されます
+  c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\ui.h(22): note: 'UI::_hp' の宣言を確認してください
+  Siv3D_Game_Jam.vcxproj -> C:\Users\古屋敷光\documents\visual studio 2015\Projects\Siv3D_Game_Jam\x64\Debug\Siv3D_Game_Jam.exe
