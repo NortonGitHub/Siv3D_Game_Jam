@@ -1,5 +1,9 @@
 #pragma once
-class GamePadManager
+#include <vector>
+#include "SettingBase.h"
+
+class GamePadManager:
+	 public SettingBase
 {
 public:
 	GamePadManager();
@@ -8,6 +12,6 @@ public:
 	static int countGamepadConnecting();
 	static bool isClickedAnyButton(int pad_num);
 	static bool isPressedAnyButton(int pad_num);
-	static bool isAllPadPressed(int all_pad_val);
+	static bool isAllPadPressed(std::vector<PARTICIPANT> participant);
 };
 

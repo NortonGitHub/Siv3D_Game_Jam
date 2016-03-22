@@ -43,15 +43,19 @@ bool GamePadManager::isPressedAnyButton(int pad_num)
 	return false;
 }
 
-bool GamePadManager::isAllPadPressed(int all_pad_val)
+bool GamePadManager::isAllPadPressed(std::vector<PARTICIPANT> participant)
 {
 	int clear = 0;
-	for (int i = 0; i < all_pad_val;i++){
+
+#if 1
+	for (int i = 0; i < participant.size();i++){
 		for (int j = 0; j < Gamepad(i).num_buttons; j++) {
-			if (Gamepad(i).button(j).pressed) {
+			if (Gamepad(participant[i].num - 1).button(j).pressed) {
 				clear++;
 			}
 		}
 	}
-	return (clear >= all_pad_val) ? true : false;
+#endif
+
+	return (clear >= participant.size()) ? true : false;
 }

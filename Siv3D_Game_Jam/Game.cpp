@@ -38,7 +38,6 @@ SceneBase* Game::update()
 
 	Collision::CollisionDetection(player, enclosures);
 
-//	for (auto p : player) {
 	for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
 		if (*p == nullptr)
 			continue;
@@ -46,17 +45,13 @@ SceneBase* Game::update()
 		*p = (*p)->update();
 
 		std::iterator_traits<std::vector<int>::iterator>::difference_type index = p - player.begin();
-
-		for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
-			it->update((*p)->getEllipseBody());
-		}
+		_hpUI[index].setPlayerHP((*p)->getHP());
+//		_hpUI[index].update((*p)->getEllipseBody());
 	}
 
-#if 0
+#if 1
 	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end();it++) {
-		for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
-			it->update((*p)->getEllipseBody());
-		}
+		it->update(player);
 	}
 #endif
 	
@@ -73,20 +68,21 @@ void Game::draw()
 
 		std::iterator_traits<std::vector<int>::iterator>::difference_type index = p - player.begin();
 
-		for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
-			it->draw((*p)->getHP());
-		}
 	}
 
 #if 0
 	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
 		for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
-			it->draw((*p)->getHP());
+			it->draw((*p)->getHP(), (*p)->getEllipseBody());
 		}
 	}
 #endif
 
 	for (std::map<std::string, Enclosure*>::iterator it = enclosures.begin(); it != enclosures.end(); it++) {
 		it->second->draw();
+	}
+
+	for (auto u : _hpUI) {
+		u.draw();
 	}
 }

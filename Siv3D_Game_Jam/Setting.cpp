@@ -15,7 +15,8 @@ Setting::Setting()
 		defaultPos.x + iconWidth / 2, defaultPos.y);
 
 	_nowScene = PARTICIPATE;
-	participantVal = 0;
+
+	participant.reserve(4);
 
 	frames[0] = Rect(40, 120, 240, 140);
 	frames[1] = Rect(360, 120, 240, 140);
@@ -64,27 +65,35 @@ SceneBase * Setting::updateParticipate()
 
 	for (int i = 0; i < nowConnecting; i++) {
 		if (GamePadManager::isClickedAnyButton(i)) {
-			if (participantVal > 4)
+			if (participant.size() > 3)
 				break;
 
+#if 0
 			for (int j = 0; j < nowConnecting; j++) {
 				if (participant[j].hasParticipate == true && participant[j].num == i + 1) {
 					return this;
 				}
 			}
+#endif
+			auto itr = std::find(participant.begin(), participant.end(), PARTICIPANT{ i + 1 });
 
-			participant[participantVal].num = i + 1;
-			participant[participantVal].hasParticipate = true;
-			participantVal++;
+#if 1
+			if (itr == participant.end()) {
+				participant.push_back(PARTICIPANT{ i + 1 });
+			}
+#endif
 		}
 	}
-
-	if (participantVal >= 2 && GamePadManager::isAllPadPressed(participantVal)) {
+	
+	if (participant.size() >= 2 && GamePadManager::isAllPadPressed(participant)) {
 		std::array<int, 4> temp;
 		for (int i = 0; i < 4; i++) {
-			temp[i] = participant[i].num;
+			if (i < participant.size())
+				temp[i] = participant[i].num;
+			else
+				temp[i] = 0;
 		}
-		return new Game(participantVal, temp);
+		return new Game(participant.size(), temp);
 	}
 
 	return this;
@@ -98,23 +107,22 @@ void Setting::drawModeSelect()
 void Setting::drawParticipate()
 {
 
-	for (int i = 0; i < participantVal; i++) {
+	for (int i = 0; i < participant.size(); i++) {
 		Circle(10 * i, 10, 5).draw(Palette::Green);
 	}
 	topMessageFont(L"参加者募集中!").drawCenter(Window::Width() / 2, 40.0, Palette::Aquamarine);
 
-	for (int i = 0; i < 4; i++) {
-		if (participant[i].hasParticipate) {
-			frames[i].draw(Palette::Dodgerblue);
-			playerStatusFont(L"player", participant[i].num).drawCenter(frames[i].center);
-		}
-		else {
-			frames[i].draw(Palette::Mediumblue);
-			playerStatusFont(L"ボタンを押してください").drawCenter(frames[i].center);
-		}
+	for (int i = participant.size(); i < 4; i++) {
+		frames[i].draw(Palette::Mediumblue);
+		playerStatusFont(L"ボタンを押してください").drawCenter(frames[i].center);
 	}
 
-	if (participantVal >= 2) {
+	for (int i = 0; i < participant.size(); i++) {
+		frames[i].draw(Palette::Dodgerblue);
+		playerStatusFont(L"player", participant[i].num).drawCenter(frames[i].center);
+	}
+
+	if (participant.size() >= 2) {
 		centerMessageFont(L"ボタンを押し続けてスタート").drawCenter(Window::Center());
 	}
 
