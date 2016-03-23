@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Collision.h"
+#include "Over.h"
 
 Game::Game() {
 
@@ -38,6 +39,8 @@ SceneBase* Game::update()
 
 	Collision::CollisionDetection(player, enclosures);
 
+	int nowAllivingNum = 0;
+
 	for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
 		if (*p == nullptr)
 			continue;
@@ -46,11 +49,17 @@ SceneBase* Game::update()
 
 		std::iterator_traits<std::vector<int>::iterator>::difference_type index = p - player.begin();
 		_hpUI[index].setPlayerHP((*p)->getHP());
-//		_hpUI[index].update((*p)->getEllipseBody());
+		
+		if (!(*p)->isHPFallBelowZERO())
+			nowAllivingNum++;
+	}
+
+	if (nowAllivingNum <= 1) {
+		return new Over(nowAllivingNum);
 	}
 
 #if 1
-	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end();it++) {
+	for (std::vector<PlayerStatus>::iterator it = _hpUI.begin(); it != _hpUI.end();it++) {
 		it->update(player);
 	}
 #endif
@@ -71,7 +80,7 @@ void Game::draw()
 	}
 
 #if 0
-	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
+	for (std::vector<PlayerStatus>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
 		for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
 			it->draw((*p)->getHP(), (*p)->getEllipseBody());
 		}
