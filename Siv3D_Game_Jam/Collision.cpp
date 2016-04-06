@@ -82,8 +82,9 @@ bool Collision::isCollisionDetectionWithOpp(Ellipse a, Ellipse b)
 	return false;
 }
 
-void Collision::CollisionDetection(std::vector<Player*>& _player, std::map<std::string, Enclosure*>& _enclosures)
+void Collision::CollisionDetection(std::vector<Player*>& _player, std::map<std::string, Enclosure*>& _enclosures, int _nowGameMode)
 {
+#if 0
 	for (auto it : _player) {
 		if (it->isHPFallBelowZERO())
 			continue;
@@ -97,7 +98,10 @@ void Collision::CollisionDetection(std::vector<Player*>& _player, std::map<std::
 			en->second->update();
 			if (isCollisionDetection(vir_pl, en->second->wall)) {
 				it->getEllipseBody().setPos(findAdjustmentCoord(en->first, en->second->wall, it->getWidthRadius() / 2, it->getHeightRadius() / 2));
-				it->reflectingDamageToHPWithWall();
+
+				if(_nowGameMode != 2)
+					it->reflectingDamageToHPWithWall();
+
 				it->setAcceleration(it->getAccelerationX()*-1, it->getAccelerationY()*-1);
 			}
 		}
@@ -129,7 +133,7 @@ void Collision::CollisionDetection(std::vector<Player*>& _player, std::map<std::
 		}
 	}
 
-
+#endif
 
 #if 0
 	if (isCollisionDetectionWithOpp(vir_pl[0], vir_pl[1])) {

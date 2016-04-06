@@ -2,7 +2,7 @@
 #include "Collision.h"
 
 
-Player::Player(int n, int all_player)
+Player::Player(int n, int all_player,int _gameMode)
 	:font(30),
 	half_of_width(Window::Width()/2),
 	initialCoord{ Vec2(52,82),Vec2(580,82),Vec2(52,380),Vec2(580,380) },
@@ -11,37 +11,45 @@ Player::Player(int n, int all_player)
 	_wr = 40;
 	_hr = 60;
 
-	_hp = 100;
+	num = n;
 
 	_accelerationX = 0.0;
 	_accelerationY = 0.0;
 
-	color = Palette::White;
-
 	frame = 0;
 
-	initPlayer(n);
+	initPlayer(n, _gameMode);
 	allPlayerVal = all_player;
+
+}
+
+void Player::initPlayer(int n, int _gameMode)
+{
+	_hp = getHPAccordingToTheModes(_gameMode);
+	_stock = 3;
+	_gottenStar = 0;
+	_destroyedVal = 0;
+
+	color = Palette::White;
 
 	_direction = "stop";
 
 	yolk.r = Body.axis.x;
 	_isBrokenCompleted = false;
-}
-
-void Player::initPlayer(int n)
-{
-	num = n;
-	/*
-	_x = (num == 1) ? 52 : 580;
-	_y = (num == 1) ? 380 : 82;
-	*/
 
 	_x = initialCoord[n - 1].x;
 	_y = initialCoord[n - 1].y;
 
 	Body.set(_x, _y, _wr / 2, _hr / 2);
 
+	initProcessedPlayer();
+}
+
+void Player::initProcessedPlayer()
+{
+	for (auto p : processed) {
+		p = nullptr;
+	}
 }
 
 void Player::initBroken()
@@ -210,15 +218,41 @@ void Player::setMovingDirection()
 	}
 }
 
+int Player::getHPAccordingToTheModes(int _gameMode)
+{
+	int settingHp;
 
-void Player::reflectingDamageToHP(Point opponent)
+	switch (_gameMode) {
+	case 0:
+		settingHp = 60;
+		break;
+	case 1:
+		settingHp = 50;
+		break;
+	case 2:
+		settingHp = -1;
+		break;
+	default:
+		settingHp = 0;
+		break;
+	}
+	return settingHp;
+}
+
+
+void Player::reflectingDamageToHP(Point opponent, int nowGameMode)
 {
 	double _acceSum1 = abs(_accelerationX + _accelerationY);
 	double _acceSum2 = abs(opponent.x + opponent.y);
 
 
 	double _damage = (_acceSum1 > _acceSum2) ? _acceSum2 / 2 : _acceSum2 * 1.5;
-	_hp -= _damage;
+
+	if (nowGameMode != 2)
+		_hp -= _damage;
+	else if (_damage == _acceSum2 * 1.5)
+		_gottenStar--;
+		
 }
 
 void Player::reflectingDamageToHPWithWall()

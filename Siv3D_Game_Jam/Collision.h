@@ -13,14 +13,14 @@ public:
 	static bool isCollisionDetection(Ellipse a, Rect b);
 	static bool isCollisionDetectionWithOpp(Ellipse a, Ellipse b);
 
-	static void CollisionDetection(std::vector<Player*>& _player, std::map<std::string, Enclosure*>& _enclosures);
+	static void CollisionDetection(std::vector<Player*>& _player, std::map<std::string, Enclosure*>& _enclosures,int _nowGameMode);
 
 
 	static Point findAdjustmentCoord(std::string key, Rect a, int wr,int hr);
 	static Point findAdjustmentCoordOpp(std::string key, Ellipse a, int wr, int hr);
+	static void redistributedAcceleration(Player* & _p1, Player* & _p2);
 
 private:
-	static void redistributedAcceleration(Player* & _p1, Player* & _p2);
 	bool discernedWinningAcceleration(Player* _p1, Player* _p2, bool& isAcceXValid);
 
 	Player* tmp;
