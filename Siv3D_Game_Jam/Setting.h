@@ -31,6 +31,8 @@ private:
 
 	enum Scene _nowScene;
 
+	enum GAME_MODE _gameMode;
+
 	SceneBase* updateModeSelect();
 	SceneBase* updateParticipate();
 

@@ -22,6 +22,8 @@ Setting::Setting()
 	frames[1] = Rect(360, 120, 240, 140);
 	frames[2] = Rect(40, 300, 240, 140);
 	frames[3] = Rect(360, 300, 240, 140);
+
+	_gameMode = DEATHMATCH;
 }
 
 
@@ -93,7 +95,7 @@ SceneBase * Setting::updateParticipate()
 			else
 				temp[i] = 0;
 		}
-		return new Game(participant.size(), temp);
+		return new Game(participant.size(), temp, _gameMode);
 	}
 
 	return this;
