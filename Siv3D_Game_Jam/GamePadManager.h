@@ -13,5 +13,6 @@ public:
 	static bool isClickedAnyButton(int pad_num);
 	static bool isPressedAnyButton(int pad_num);
 	static bool isAllPadPressed(std::vector<PARTICIPANT> participant);
+	static std::string getClickedPov(int pad_num);
 };
 

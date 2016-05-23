@@ -4,10 +4,14 @@ class SettingBase {
 public:
 protected:
 	struct PARTICIPANT {
-		int num;
+		int padNum;
+		int orderNum;
 
 		bool operator==(const PARTICIPANT &p) {
-			return(this->num == p.num);
+			return(this->padNum == p.padNum);
 		}
 	};
+
+
+
 };

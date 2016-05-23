@@ -18,6 +18,8 @@ public:
 	void draw() override;
 
 private:
+
+	int searchWinner(std::vector<Player*> player);
 	
 	std::vector<Player*> player;
 	
@@ -27,5 +29,8 @@ private:
 	std::vector<UI> _hpUI;
 	
 	//std::array<EffectManager*, 20> effects;
+	SceneBase* detectGameEnd();
+
+	static std::vector<Player*> playerBackup;
 };
 

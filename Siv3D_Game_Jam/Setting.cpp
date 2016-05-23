@@ -70,30 +70,30 @@ SceneBase * Setting::updateParticipate()
 
 #if 0
 			for (int j = 0; j < nowConnecting; j++) {
-				if (participant[j].hasParticipate == true && participant[j].num == i + 1) {
+				if (participant[j].hasParticipate == true && participant[j].padNum == i + 1) {
 					return this;
 				}
 			}
 #endif
-			auto itr = std::find(participant.begin(), participant.end(), PARTICIPANT{ i + 1 });
+			auto itr = std::find(participant.begin(), participant.end(), PARTICIPANT{ i + 1,(int)participant.size() });
 
 #if 1
 			if (itr == participant.end()) {
-				participant.push_back(PARTICIPANT{ i + 1 });
+				participant.push_back(PARTICIPANT{ i + 1 , (int)participant.size()});
 			}
 #endif
 		}
 	}
 	
 	if (participant.size() >= 2 && GamePadManager::isAllPadPressed(participant)) {
-		std::array<int, 4> temp;
+		std::array<int, 4> padNumbers;
 		for (int i = 0; i < 4; i++) {
 			if (i < participant.size())
-				temp[i] = participant[i].num;
+				padNumbers[i] = participant[i].padNum;
 			else
-				temp[i] = 0;
+				padNumbers[i] = 0;
 		}
-		return new Game(participant.size(), temp);
+		return new Game(participant.size(), padNumbers);
 	}
 
 	return this;
@@ -119,7 +119,7 @@ void Setting::drawParticipate()
 
 	for (int i = 0; i < participant.size(); i++) {
 		frames[i].draw(Palette::Dodgerblue);
-		playerStatusFont(L"player", participant[i].num).drawCenter(frames[i].center);
+		playerStatusFont(L"player", participant[i].padNum).drawCenter(frames[i].center);
 	}
 
 	if (participant.size() >= 2) {

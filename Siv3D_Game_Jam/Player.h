@@ -7,12 +7,12 @@ class Player :
 	public CharaBase
 {
 public:
-	Player(int n,int all_player);
+	Player(int padNum, int orderNum, int all_player);
 	~Player();
 
 	Player* update();
 	void draw();
-
+	
 	void drawNormal();
 	void drawBroken();
 
@@ -25,6 +25,8 @@ public:
 
 	double getAccelerationX() { return _accelerationX; }
 	double getAccelerationY() { return _accelerationY; }
+
+	int getPlayerNumber() { return playerNum; }
 
 	void reflectingDamageToHP(Point opponent);
 	void reflectingDamageToHPWithWall();
@@ -51,15 +53,10 @@ private:
 	const Vec2 initialCoord[4];
 	Gamepad usingpad;
 
-	void initBroken();
-
-	void updateResistance();
-	void rollDirection();
-	void setMovingDirection();
-
 	int frame;
 
-	int num;
+	int orderNum;	//参加順
+	int playerNum;	//パッド番号
 	int _hp;
 	int allPlayerVal;
 
@@ -68,5 +65,12 @@ private:
 	bool _isBrokenCompleted;
 
 	std::string _direction;//"right,left,up,down,stop"
+
+	void initBroken();
+
+	void updateResistance();
+	void rollDirection();
+	void setMovingDirection();
+
 };
 

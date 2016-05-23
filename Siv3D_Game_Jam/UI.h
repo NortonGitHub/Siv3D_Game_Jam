@@ -15,6 +15,7 @@ public:
 
 	void setPlayerHP(int hp);
 	void setOpacityOfHP(Ellipse _player);
+
 private:
 	const int half_of_width;
 	const Vec2 indicatingHPCoord[4];
