@@ -103,11 +103,14 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Over.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerStatus.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UIBase.cpp" />
+    <ClCompile Include="VisualColorBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Engine\Splash.png" />
@@ -225,11 +228,14 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Over.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerStatus.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Setting.h" />
+    <ClInclude Include="SettingBase.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="Title.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIBase.h" />
+    <ClInclude Include="VisualColorBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
