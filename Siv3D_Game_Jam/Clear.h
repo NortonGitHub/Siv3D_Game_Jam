@@ -30,6 +30,8 @@ private:
 
 	Color frameOfChoicesCol[2];
 
+	std::string choicingStatus;
+
 	int changeChoicesIcon(std::string _padPovStatus);
 	void increaseWinningNum(int winnerNum);
 

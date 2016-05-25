@@ -1,6 +1,6 @@
 #include "GamePadManager.h"
 #include <Siv3D.hpp>
-
+#include <Windows.h>
 
 GamePadManager::GamePadManager()
 {
@@ -14,12 +14,12 @@ GamePadManager::~GamePadManager()
 int GamePadManager::countGamepadConnecting()
 {
 	int count = 0;
-	for (int i = 0; i < 4; i++) {
-		if (Gamepad(i).isConnected()) {
+	int a = joyGetNumDevs();
+	for ( int i = 0; i < a; i++) {
+		if(Gamepad(i).isConnected()){
 			count++;
 		}
 	}
-	
 	return count;
 }
 
@@ -60,7 +60,7 @@ bool GamePadManager::isAllPadPressed(std::vector<PARTICIPANT> participant)
 	return (clear >= participant.size()) ? true : false;
 }
 
-std::string GamePadManager::getClickedPov(int pad_num)
+std::string GamePadManager::getClickedPov(int pad_num, std::string beforeClickedPov)
 {
 	if (Gamepad(pad_num).povLeft.clicked) {
 		return "Left";
@@ -68,5 +68,5 @@ std::string GamePadManager::getClickedPov(int pad_num)
 	else if (Gamepad(pad_num).povRight.clicked) {
 		return "Right";
 	}
-	return "Left";
+	return beforeClickedPov;
 }

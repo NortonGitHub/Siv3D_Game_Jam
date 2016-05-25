@@ -10,7 +10,7 @@ KeyBase::~KeyBase()
 {
 }
 
-void KeyBase::inputKey(double & _acceX, double & _acceY, Gamepad pad, std::string& _movingDirection)
+void KeyBase::inputKey(double & _acceX, double & _acceY, Gamepad pad)
 {
 	const double acceVal = 4.0;
 	if (pad.povForward.clicked) {
@@ -24,7 +24,7 @@ void KeyBase::inputKey(double & _acceX, double & _acceY, Gamepad pad, std::strin
 		_acceX = 0.0;
 	}
 	else if (pad.povLeft.clicked) {
-		_movingDirection = "Left";
+	//	_movingDirection = "Left";
 		_acceX -= acceVal;
 		_acceY = 0.0;
 	}

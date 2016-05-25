@@ -3,11 +3,12 @@
 #include "Player.h"
 
 class UI
+	: public VisualColorBase
 {
 public:
 	UI(int _num);
 	~UI();
-
+	
 	void update(std::vector<Player*> _player);
 	void draw();
 
@@ -32,5 +33,7 @@ private:
 	int _beforeOpacity;
 
 	Ellipse _coveringPlayer;
+
+	Color color;
 };
 

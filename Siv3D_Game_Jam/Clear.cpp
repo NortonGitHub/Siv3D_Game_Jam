@@ -38,7 +38,7 @@ std::vector<int> Clear::playerWinningNum;
 
 Clear::Clear(int numOfparticipants, int winnerNum)
 	: eggNum(28,L"‚l‚r ‚oƒSƒVƒbƒN", FontStyle::BitmapBold),
-	choices(30,L"‚l‚r ‚oƒSƒVƒbƒN", FontStyle::BitmapBold)
+	choices(22,L"‚l‚r ‚oƒSƒVƒbƒN", FontStyle::BitmapBold)
 {
 	if (playerWinningNum.empty()) {
 		playerWinningNum.resize(numOfparticipants);
@@ -48,11 +48,10 @@ Clear::Clear(int numOfparticipants, int winnerNum)
 	}
 
 	winningNum = Font::Font(30, Typeface::Heavy, FontStyle::Outline);
+	_numOfParticipant = numOfparticipants;
+	choicingStatus = "Left";
 
 	increaseWinningNum(winnerNum);
-
-	_numOfParticipant = numOfparticipants;
-	
 }
 
 
@@ -66,10 +65,10 @@ SceneBase* Clear::update()
 
 	SceneBase* beforeScene = this;
 
-	for (int i = 0; i < 5; i++) {
-		std::string clickedStatus = GamePadManager::getClickedPov(i);
+	for (int i = 0; i < GamePadManager::countGamepadConnecting(); i++) {
+		choicingStatus = GamePadManager::getClickedPov(i, choicingStatus);
 
-		selecting =  changeChoicesIcon(clickedStatus);
+		selecting =  changeChoicesIcon(choicingStatus);
 		
 		if (GamePadManager::isClickedAnyButton(i)) {
 			beforeScene = changeScene(selecting);
@@ -82,7 +81,7 @@ void Clear::draw()
 {
 	for (int i = 0; i < _numOfParticipant; i++) {
 		eggs[i].draw(selectBodyColor(i));
-		eggNum(i + 1).drawCenter(eggs[i].center);
+//		eggNum(i + 1).drawCenter(eggs[i].center);
 		framesOfNum[i].draw(selectBodyColor(i));
 		winningNum(playerWinningNum[i]).drawCenter(framesOfNum[i].center);
 	}
@@ -96,7 +95,7 @@ void Clear::draw()
 
 void Clear::increaseWinningNum(int winnerNum)
 {
-	for ( int i = 0; i < playerWinningNum.size();i++) {
+	for ( int i = 0; i < _numOfParticipant;i++) {
 		if (i == winnerNum) {
 			playerWinningNum[i]++;
 			break;
@@ -110,6 +109,8 @@ SceneBase * Clear::changeScene(int request)
 		return new Game();
 	}
 	else if (request == 2) {
+		playerWinningNum.clear();
+		playerWinningNum.shrink_to_fit();
 		return new Setting();
 	}
 	return this;

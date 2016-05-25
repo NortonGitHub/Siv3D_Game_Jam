@@ -4,7 +4,7 @@
 
 Setting::Setting()
 	:topMessageFont(24),
-	playerStatusFont(14),
+	playerStatusFont(12, L"HGP創英ﾌﾟﾚｾﾞﾝｽEB", FontStyle::BitmapBold),
 	centerMessageFont(16)
 {
 	const int iconHeight = 40;
@@ -48,7 +48,7 @@ SceneBase * Setting::updateModeSelect()
 
 	std::string dammy;
 
-	_key.inputKey(_movingX, _movingY, Gamepad(0), dammy);
+	_key.inputKey(_movingX, _movingY, Gamepad(0));
 
 	selectingIcon.setCentroid(_movingX * 20, _movingY * 20);
 
@@ -93,7 +93,7 @@ SceneBase * Setting::updateParticipate()
 			else
 				padNumbers[i] = 0;
 		}
-		return new Game(participant.size(), padNumbers);
+		return new Game((int)participant.size(), padNumbers);
 	}
 
 	return this;
@@ -112,18 +112,18 @@ void Setting::drawParticipate()
 	}
 	topMessageFont(L"参加者募集中!").drawCenter(Window::Width() / 2, 40.0, Palette::Aquamarine);
 
-	for (int i = participant.size(); i < 4; i++) {
+	for (int i = (int)participant.size(); i < 4; i++) {
 		frames[i].draw(Palette::Mediumblue);
 		playerStatusFont(L"ボタンを押してください").drawCenter(frames[i].center);
 	}
 
 	for (int i = 0; i < participant.size(); i++) {
-		frames[i].draw(Palette::Dodgerblue);
-		playerStatusFont(L"player", participant[i].padNum).drawCenter(frames[i].center);
+		frames[i].draw(selectBodyColor(i));
+		playerStatusFont(L"player", participant[i].padNum).drawCenter(frames[i].center,Palette::Gold);
 	}
 
 	if (participant.size() >= 2) {
-		centerMessageFont(L"ボタンを押し続けてスタート").drawCenter(Window::Center());
+		centerMessageFont(L"ボタンを押し続けてスタート").drawCenter(Window::Center().x, 280);
 	}
 
 }

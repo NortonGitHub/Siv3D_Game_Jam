@@ -21,8 +21,6 @@ Player::Player(int padNum, int orderNum, int all_player)
 	_accelerationX = 0.0;
 	_accelerationY = 0.0;
 
-	color = Palette::White;
-
 	frame = 0;
 
 	initPlayer(orderNum);
@@ -88,7 +86,7 @@ Player* Player::update()
 		return this;
 	}
 
-	KeyBase::inputKey(_accelerationX, _accelerationY, usingpad, _direction);
+	KeyBase::inputKey(_accelerationX, _accelerationY, usingpad);
 
 	setMovingDirection();
 

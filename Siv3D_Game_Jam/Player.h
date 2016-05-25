@@ -26,7 +26,8 @@ public:
 	double getAccelerationX() { return _accelerationX; }
 	double getAccelerationY() { return _accelerationY; }
 
-	int getPlayerNumber() { return playerNum; }
+	int getPlayerNumber() const { return playerNum; }
+	int getOrderNumber()const { return orderNum; }
 
 	void reflectingDamageToHP(Point opponent);
 	void reflectingDamageToHPWithWall();

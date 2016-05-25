@@ -13,6 +13,8 @@ UI::UI(int _num)
 
 	indicatingHP.setSize(Vec2(40, 60));
 	indicatingHP.setPos(indicatingHPCoord[_num]);
+
+	color = selectBodyColor(_num);
 }
 
 void UI::init(int allNum) {
@@ -33,6 +35,8 @@ void UI::update(std::vector<Player*> _player)
 	bool _isCoveredWith = fluctuatingOpacity(_player);
 
 	_nowOpacity = (_isCoveredWith) ? 55 : 255;
+
+	color.a = _nowOpacity;
 }
 
 void UI::draw()
@@ -41,7 +45,7 @@ void UI::draw()
 	indicatingHP.draw(Color(255, 255, 255, _opacityOfHpFont));
 	_restHpFont(_hp).drawCenter(indicatingHP.center, Color(0, 0, 0, _opacityOfHpFont));
 	*/
-	indicatingHP.draw(Color(255, 255, 255, _nowOpacity));
+	indicatingHP.draw(color);
 	_restHpFont(_hp).drawCenter(indicatingHP.center, Color(0, 0, 0, _nowOpacity));
 
 }

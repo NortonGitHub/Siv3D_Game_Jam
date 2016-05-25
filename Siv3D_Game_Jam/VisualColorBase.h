@@ -14,11 +14,11 @@ protected:
 
 		switch (charactorNum) {
 		case 0:
-			return White;
+			return Whitesmoke;
 		case 1:
 			return Yellowgreen;
 		case 2:
-			return Lightblue;
+			return Blue;
 		case 3:
 			return Orangered;
 		}

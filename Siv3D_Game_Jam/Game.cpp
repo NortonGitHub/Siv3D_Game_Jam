@@ -119,7 +119,7 @@ int Game::searchWinner(std::vector<Player*> player)
 			winner = p;
 	}
 
-	int winnerNum = (winner != nullptr) ? winner->getPlayerNumber() : -1;
+	int winnerNum = (winner != nullptr) ? winner->getOrderNumber() : -1;
 
 	return winnerNum;
 }

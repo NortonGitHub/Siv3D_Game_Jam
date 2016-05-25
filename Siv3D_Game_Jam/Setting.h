@@ -2,10 +2,12 @@
 #include "SceneBase.h"
 #include "KeyBase.h"
 #include "SettingBase.h"
+#include "VisualColorBase.h"
 
 class Setting :
 	public SceneBase,
-	SettingBase
+	SettingBase,
+	VisualColorBase
 {
 public:
 	Setting();
