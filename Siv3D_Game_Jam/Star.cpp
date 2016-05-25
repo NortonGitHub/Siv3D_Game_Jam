@@ -49,7 +49,7 @@ Star* Star::update()
 
 	body.moveBy(_accerelationX, _accerelationY);
 
-	if (_accerelationX <= 0.1 || _accerelationY <= 0.1) {
+	if (_accerelationX <= 0.1 && _accerelationY <= 0.1) {
 		return nullptr;
 	}
 

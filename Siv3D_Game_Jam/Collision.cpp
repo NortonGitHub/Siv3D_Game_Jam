@@ -96,7 +96,9 @@ void Collision::CollisionDetection(std::vector<Player*>& _player, std::map<std::
 		for (std::map<std::string, Enclosure*>::iterator en = _enclosures.begin(); en != _enclosures.end(); en++) {
 			en->second->update();
 			if (isCollisionDetection(vir_pl, en->second->wall)) {
+				Point _acce = Point(it->getAccelerationX(), it->getAccelerationY());
 				it->getEllipseBody().setPos(findAdjustmentCoord(en->first, en->second->wall, it->getWidthRadius() / 2, it->getHeightRadius() / 2));
+				it->setEffectsInit(_acce, vir_pl.center);
 				it->reflectingDamageToHPWithWall();
 				it->setAcceleration(it->getAccelerationX()*-1, it->getAccelerationY()*-1);
 			}

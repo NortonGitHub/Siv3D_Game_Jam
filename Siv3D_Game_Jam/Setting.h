@@ -1,9 +1,13 @@
 #pragma once
 #include "SceneBase.h"
 #include "KeyBase.h"
+#include "SettingBase.h"
+#include "VisualColorBase.h"
 
 class Setting :
-	public SceneBase
+	public SceneBase,
+	SettingBase,
+	VisualColorBase
 {
 public:
 	Setting();
@@ -17,16 +21,10 @@ private:
 		MODE_SELECT,PARTICIPATE
 	};
 
-	struct PARTICIPANT{
-		int num;
-		bool hasParticipate;
-	};
-
 	KeyBase _key;
 	Triangle selectingIcon;
 
-	std::array<PARTICIPANT, 4> participant;
-	int participantVal;
+	std::vector<PARTICIPANT> participant;
 
 	Font topMessageFont;
 	Font centerMessageFont;

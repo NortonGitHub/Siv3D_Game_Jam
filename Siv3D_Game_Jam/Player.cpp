@@ -1,48 +1,42 @@
 #include "Player.h"
+#include "Collision.h"
 
 
-
-Player::Player(int n, int all_player)
+Player::Player(int padNum, int orderNum, int all_player)
 	:font(30),
 	half_of_width(Window::Width()/2),
 	initialCoord{ Vec2(52,82),Vec2(580,82),Vec2(52,380),Vec2(580,380) },
-	indicatingHPCoord{ Vec2(half_of_width - 210,410),Vec2(half_of_width - 90,410),Vec2{half_of_width + 30,410},Vec2{half_of_width+150,410} },
-	usingpad(n-1)
+	usingpad(padNum - 1),
+	orderNum(orderNum)
 {
+
+	color = selectBodyColor(orderNum);
 	_wr = 40;
 	_hr = 60;
 
-	_hp = 100;
+	_hp = 10;
+
+	playerNum = padNum - 1;
 
 	_accelerationX = 0.0;
 	_accelerationY = 0.0;
 
-	color = Palette::White;
-
 	frame = 0;
 
-	initPlayer(n);
+	initPlayer(orderNum);
 	allPlayerVal = all_player;
 
 	_direction = "stop";
 
 	yolk.r = Body.axis.x;
 	_isBrokenCompleted = false;
-
-	indicatingHP.setSize(Vec2(60, 90));
-	indicatingHP.setPos(indicatingHPCoord[n - 1]);
 }
 
 void Player::initPlayer(int n)
 {
-	num = n;
-	/*
-	_x = (num == 1) ? 52 : 580;
-	_y = (num == 1) ? 380 : 82;
-	*/
 
-	_x = initialCoord[n - 1].x;
-	_y = initialCoord[n - 1].y;
+	_x = initialCoord[n].x;
+	_y = initialCoord[n].y;
 
 	Body.set(_x, _y, _wr / 2, _hr / 2);
 
@@ -83,8 +77,6 @@ Player* Player::update()
 	_x += _accelerationX;
 	_y += _accelerationY;
 
-	setMovingDirection();
-
 	Body.x = _x;
 	Body.y = _y;
 
@@ -94,7 +86,9 @@ Player* Player::update()
 		return this;
 	}
 
-	KeyBase::inputKey(_accelerationX, _accelerationY, usingpad, _direction);
+	KeyBase::inputKey(_accelerationX, _accelerationY, usingpad);
+
+	setMovingDirection();
 
 	rollDirection();
 
@@ -120,12 +114,15 @@ void Player::drawNormal()
 
 	effects.draw();
 
-	font(L"‰Á‘¬“x", _accelerationX, L"HP", _hp).draw(20.0, 32.0*num);
+
+	String a = Widen(_direction);
+	font(L"direction", a).draw(40.0, 60.0*orderNum, color);
 }
 
 void Player::drawBroken()
 {
 	yolk.draw(color);
+	
 	for (auto es : eggShell) {
 		es.draw(Palette::Whitesmoke);
 	}
@@ -140,6 +137,9 @@ void Player::setAcceleration(double _x, double _y)
 
 void Player::setEffectsInit(Point oponentAcce, Vec2 myCenter)
 {
+	if (_direction == "Stop")
+		return;
+
 	effects.init(oponentAcce, myCenter, _direction);
 }
 
@@ -197,21 +197,23 @@ void Player::rollDirection()
 void Player::setMovingDirection()
 {
 	if (_accelerationX > 0.0) {
-		_direction = "right";
+		_direction = "Right";
 	}
 	else if (_accelerationX < 0.0) {
-		_direction = "left";
+		_direction = "Left";
 	}
 	else if (_accelerationY > 0.0) {
-		_direction = "down";
+		_direction = "Down";
 	}
 	else if (_accelerationY < 0.0) {
-		_direction = "up";
+		_direction = "Up";
 	}
 	else {
-		_direction = "stop";
+		_direction = "Stop";
 	}
 }
+
+
 
 void Player::reflectingDamageToHP(Point opponent)
 {

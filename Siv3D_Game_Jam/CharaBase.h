@@ -1,6 +1,8 @@
 #pragma once
-#include <Siv3D.hpp>
+#include "VisualColorBase.h"
+
 class CharaBase
+	: protected VisualColorBase
 {
 public:
 	CharaBase();
@@ -14,6 +16,7 @@ public:
 	}
 
 protected:
+
 	Image image;
 	DynamicTexture texture;
 
@@ -29,5 +32,6 @@ protected:
 
 	double graPeriod;	//cˆÚ“®‚Ì‰~‚Ì”¼Œa‚Ì•Ï‰»‚Ég—p
 	double degree;		//‰¡ˆÚ“®‚Ì‚í‚¸‚©‚È‘È‰~‚ÌŒX‚«‚Ég—p
+
 };
 

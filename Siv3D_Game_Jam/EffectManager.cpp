@@ -23,6 +23,9 @@ void EffectManager::init(Point oponentAcce, Vec2 myCenter, std::string direction
 
 void EffectManager::update()
 {
+	if (_effectStar.empty())
+		return;
+
 	for (int i = 0; i < _effectStar.size(); i++) {
 		if (_effectStar[i] != nullptr) {
 			_effectStar[i] = _effectStar[i]->update();
@@ -32,6 +35,9 @@ void EffectManager::update()
 
 void EffectManager::draw()
 {
+	if (_effectStar.empty())
+		return;
+
 	for (int i = 0; i < _effectStar.size(); i++) {
 		if (_effectStar[i] != nullptr) {
 			_effectStar[i]->draw();

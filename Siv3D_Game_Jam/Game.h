@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enclosure.h"
 #include "Object.h"
+#include "UI.h"
 
 class Game :
 	public SceneBase
@@ -17,12 +18,19 @@ public:
 	void draw() override;
 
 private:
+
+	int searchWinner(std::vector<Player*> player);
 	
 	std::vector<Player*> player;
-
+	
 	std::map<std::string, Enclosure*> enclosures;
 	std::vector<Object*> objects;
 
+	std::vector<UI> _hpUI;
+	
 	//std::array<EffectManager*, 20> effects;
+	SceneBase* detectGameEnd();
+
+	static std::vector<Player*> playerBackup;
 };
 

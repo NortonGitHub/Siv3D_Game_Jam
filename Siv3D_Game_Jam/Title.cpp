@@ -8,6 +8,8 @@ Title::Title()
 	_x = Window::Center().x;
 	_y = Window::Center().y;
 	tes = Circle(_x, _y, 20);
+
+	_connectedVal = GamePadManager::countGamepadConnecting();
 }
 
 
@@ -17,9 +19,7 @@ Title::~Title()
 
 SceneBase* Title::update()
 {
-	_connectedVal = GamePadManager::countGamepadConnecting();
-
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < _connectedVal; i++) {
 		if (GamePadManager::isClickedAnyButton(i)) {
 			return new Setting();
 		}
@@ -38,8 +38,8 @@ SceneBase* Title::update()
 
 void Title::draw()
 {
-	if (_connectedVal == 0) {
-		font(L"ゲームパッドが接続されていません").drawCenter(Window::Center(),Palette::Red);
+	if (_connectedVal <= 2) {
+		font(L"十分な数のゲームパッドが\n接続されていません。\nESCキーを押してゲームを閉じ、\nゲームパッドを接続してから\n再度ゲームを開いてください。").drawCenter(Window::Center(),Palette::Red);
 	}
 	tes.draw();
 }
