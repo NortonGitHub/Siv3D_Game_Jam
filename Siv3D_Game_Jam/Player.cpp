@@ -14,7 +14,7 @@ Player::Player(int padNum, int orderNum, int all_player)
 	_wr = 40;
 	_hr = 60;
 
-	_hp = 10;
+	_hp = 100;
 
 	playerNum = padNum - 1;
 
@@ -116,7 +116,7 @@ void Player::drawNormal()
 
 
 	String a = Widen(_direction);
-	font(L"direction", a).draw(40.0, 60.0*orderNum, color);
+//	font(L"direction", a).draw(40.0, 60.0*orderNum, color);
 }
 
 void Player::drawBroken()

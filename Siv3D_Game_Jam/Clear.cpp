@@ -65,15 +65,17 @@ SceneBase* Clear::update()
 
 	SceneBase* beforeScene = this;
 
-	for (int i = 0; i < GamePadManager::countGamepadConnecting(); i++) {
-		choicingStatus = GamePadManager::getClickedPov(i, choicingStatus);
+	//for (int i = 0; i < GamePadManager::countGamepadConnecting(); i++) {
+		for (int i = 0; i < 16; i++) {
+			choicingStatus = GamePadManager::getClickedPov(i, choicingStatus);
 
-		selecting =  changeChoicesIcon(choicingStatus);
-		
-		if (GamePadManager::isClickedAnyButton(i)) {
-			beforeScene = changeScene(selecting);
+			selecting = changeChoicesIcon(choicingStatus);
+
+			if (GamePadManager::isClickedAnyButton(i)) {
+				beforeScene = changeScene(selecting);
+			}
 		}
-	}
+	//}
 	return beforeScene;
 }
 
