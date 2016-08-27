@@ -21,6 +21,9 @@ private:
 
 	int searchWinner(std::vector<Player*> player);
 	
+	int frame;
+	int end_frame;
+
 	std::vector<Player*> player;
 	
 	std::map<std::string, Enclosure*> enclosures;
@@ -29,7 +32,7 @@ private:
 	std::vector<UI> _hpUI;
 	
 	//std::array<EffectManager*, 20> effects;
-	SceneBase* detectGameEnd();
+	bool detectGameEnd();
 
 	static std::vector<Player*> playerBackup;
 };
