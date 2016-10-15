@@ -6,7 +6,7 @@ std::vector<Player*> Game::playerBackup;
 
 
 Game::Game()
-	:frame(0),end_frame(0)
+	:frame(0),end_frame(0),isDetectGameEnd(false),finallyWinner(0)
 {
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Up", new Enclosure(0, 0, 640, 30, Palette::Aqua)));			//Uppper
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Bottom", new Enclosure(0, 450, 640, 30, Palette::Aqua)));		//Bottom
@@ -27,7 +27,7 @@ Game::Game()
 }
 
 Game::Game(int player_val, std::array<int, 4> participant)
-	:frame(0),end_frame(0)
+	:frame(0),end_frame(0), isDetectGameEnd(false),finallyWinner(0)
 {
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Up", new Enclosure(0, 0, 640, 30, Palette::Aqua)));			//Uppper
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Bottom", new Enclosure(0, 450, 640, 30, Palette::Aqua)));		//Bottom
@@ -63,7 +63,6 @@ Game::~Game()
 SceneBase* Game::update()
 {
 	Ellipse vir_pl[2];
-
 	Collision::CollisionDetection(player, enclosures);
 
 	for (std::vector<Player*>::iterator p = player.begin(); p != player.end(); p++) {
@@ -80,10 +79,14 @@ SceneBase* Game::update()
 		it->update(player);
 	}
 
-	if (detectGameEnd()) {
+	if (!isDetectGameEnd) {
+		detectGameEnd();
+		finallyWinner = searchWinner(player);
+	}
+	else{
 		end_frame++;
-		if (end_frame > 3000) {
-			return new Clear(player.size(), searchWinner(player));
+		if (end_frame > 180) {
+			return new Clear(player.size(), finallyWinner);
 		}
 	}
 
@@ -134,7 +137,7 @@ int Game::searchWinner(std::vector<Player*> player)
 	return winnerNum;
 }
 
-bool Game::detectGameEnd()
+void Game::detectGameEnd()
 {
 	int arrived = player.size();
 
@@ -144,8 +147,6 @@ bool Game::detectGameEnd()
 	}
 
 	if (arrived <= 1) {
-		return true;
+		isDetectGameEnd = true;
 	}
-
-	return false;
 }

@@ -32,7 +32,10 @@ private:
 	std::vector<UI> _hpUI;
 	
 	//std::array<EffectManager*, 20> effects;
-	bool detectGameEnd();
+	void detectGameEnd();
+	bool isDetectGameEnd;
+
+	int finallyWinner;
 
 	static std::vector<Player*> playerBackup;
 };
