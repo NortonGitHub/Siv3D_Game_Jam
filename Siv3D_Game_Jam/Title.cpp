@@ -19,7 +19,7 @@ Title::~Title()
 
 SceneBase* Title::update()
 {
-	for (int i = 0; i < _connectedVal; i++) {
+	for (int i = 0; i < 16; i++) {
 		if (GamePadManager::isClickedAnyButton(i)) {
 			return new Setting();
 		}
@@ -38,7 +38,7 @@ SceneBase* Title::update()
 
 void Title::draw()
 {
-	if (_connectedVal <= 2) {
+	if (_connectedVal < 2) {
 		font(L"十分な数のゲームパッドが\n接続されていません。\nESCキーを押してゲームを閉じ、\nゲームパッドを接続してから\n再度ゲームを開いてください。").drawCenter(Window::Center(),Palette::Red);
 	}
 	tes.draw();

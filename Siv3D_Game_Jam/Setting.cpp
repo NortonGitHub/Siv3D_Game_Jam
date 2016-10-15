@@ -63,7 +63,7 @@ SceneBase * Setting::updateParticipate()
 {
 	int nowConnecting = GamePadManager::countGamepadConnecting();
 
-	for (int i = 0; i < nowConnecting; i++) {
+	for (int i = 0; i < /*nowConnecting*/16; i++) {
 		if (GamePadManager::isClickedAnyButton(i)) {
 			if (participant.size() > 3)
 				break;

@@ -5,7 +5,9 @@
 std::vector<Player*> Game::playerBackup;
 
 
-Game::Game() {
+Game::Game()
+	:frame(0),end_frame(0)
+{
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Up", new Enclosure(0, 0, 640, 30, Palette::Aqua)));			//Uppper
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Bottom", new Enclosure(0, 450, 640, 30, Palette::Aqua)));		//Bottom
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Left", new Enclosure(0, 0, 30, 480, Palette::Aqua)));			//left
@@ -16,7 +18,7 @@ Game::Game() {
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("BR", new Enclosure(610, 450, 30, 30, Palette::Aquamarine)));	//Bottom-right corner
 
 	for (int i = 0; i < playerBackup.size(); i++) {
-		player.push_back(new Player(playerBackup[i]->getPlayerNumber() + 1 , i, playerBackup.size()));
+		player.push_back(new Player(playerBackup[i]->getPlayerNumber() + 1, i, playerBackup.size()));
 	}
 
 	for (int i = 0; i < player.size(); i++) {
@@ -25,6 +27,7 @@ Game::Game() {
 }
 
 Game::Game(int player_val, std::array<int, 4> participant)
+	:frame(0),end_frame(0)
 {
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Up", new Enclosure(0, 0, 640, 30, Palette::Aqua)));			//Uppper
 	enclosures.insert(std::map<std::string, Enclosure*>::value_type("Bottom", new Enclosure(0, 450, 640, 30, Palette::Aqua)));		//Bottom
@@ -37,10 +40,10 @@ Game::Game(int player_val, std::array<int, 4> participant)
 	_hpUI.reserve(4);
 #if 1
 	for (int i = 0; i < player_val; i++) {
-		player.push_back(new Player(participant[i], i , player_val));
+		player.push_back(new Player(participant[i], i, player_val));
 		_hpUI.push_back(i);
 	}
-	
+
 	playerBackup = player;
 
 #endif
@@ -73,13 +76,20 @@ SceneBase* Game::update()
 		_hpUI[index].setPlayerHP((*p)->getHP());
 	}
 
-#if 1
-	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end();it++) {
+	for (std::vector<UI>::iterator it = _hpUI.begin(); it != _hpUI.end(); it++) {
 		it->update(player);
 	}
-#endif	
-	
-	return detectGameEnd();
+
+	if (detectGameEnd()) {
+		end_frame++;
+		if (end_frame > 3000) {
+			return new Clear(player.size(), searchWinner(player));
+		}
+	}
+
+	frame = (frame > 1000) ? 0 : frame + 1;
+
+	return this;
 }
 
 void Game::draw()
@@ -124,7 +134,7 @@ int Game::searchWinner(std::vector<Player*> player)
 	return winnerNum;
 }
 
-SceneBase * Game::detectGameEnd()
+bool Game::detectGameEnd()
 {
 	int arrived = player.size();
 
@@ -134,8 +144,8 @@ SceneBase * Game::detectGameEnd()
 	}
 
 	if (arrived <= 1) {
-		return new Clear(player.size(), searchWinner(player));
+		return true;
 	}
 
-	return this;
+	return false;
 }
