@@ -1,3 +1,18 @@
-﻿  LINK : C:\Users\Admin\Documents\Visual Studio 2015\Projects\Siv3D_Game_Jam-master\Siv3D_Game_Jam\x64\Debug\Siv3D_Game_Jam.exe not found or not built by the last incremental link; performing full link
-     Creating library C:\Users\Admin\Documents\Visual Studio 2015\Projects\Siv3D_Game_Jam-master\Siv3D_Game_Jam\x64\Debug\Siv3D_Game_Jam.lib and object C:\Users\Admin\Documents\Visual Studio 2015\Projects\Siv3D_Game_Jam-master\Siv3D_Game_Jam\x64\Debug\Siv3D_Game_Jam.exp
-  Siv3D_Game_Jam.vcxproj -> C:\Users\Admin\Documents\Visual Studio 2015\Projects\Siv3D_Game_Jam-master\Siv3D_Game_Jam\x64\Debug\Siv3D_Game_Jam.exe
+﻿  Setting.cpp
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\setting.cpp(64): warning C4189: 'nowConnecting': ローカル変数が初期化されましたが、参照されていません
+  MainLoop.cpp
+  KeyBase.cpp
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\keybase.cpp(17): warning C4189: 'v': ローカル変数が初期化されましたが、参照されていません
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\keybase.cpp(21): warning C4189: 'gh': ローカル変数が初期化されましたが、参照されていません
+  Game.cpp
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.cpp(21): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.cpp(84): error C2100: 間接指定演算子 (*) の使い方が正しくありません。
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.cpp(86): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.cpp(124): warning C4458: 'player' を宣言すると、クラス メンバーが隠蔽されます
+  c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.h(27): note: 'Game::player' の宣言を確認してください
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\game.cpp(139): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Clear.cpp
+  コードを生成中...
+c:\users\古屋敷光\documents\visual studio 2015\projects\siv3d_game_jam\siv3d_game_jam\setting.cpp(36): warning C4702: 制御が渡らないコードです。
+  スキップ中... (関連する変更は検出されませんでした)
+  Player.cpp

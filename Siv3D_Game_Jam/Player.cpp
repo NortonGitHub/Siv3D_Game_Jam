@@ -116,7 +116,7 @@ void Player::drawNormal()
 
 
 	String a = Widen(_direction);
-//	font(L"direction", a).draw(40.0, 60.0*orderNum, color);
+//	font(L"direction", usingpad.x).draw(40.0, 60.0*orderNum, color);
 }
 
 void Player::drawBroken()

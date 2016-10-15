@@ -13,6 +13,14 @@ KeyBase::~KeyBase()
 void KeyBase::inputKey(double & _acceX, double & _acceY, Gamepad pad)
 {
 	const double acceVal = 4.0;
+
+	double v = pad.x;
+	bool b = pad.hasPOV;
+
+	if (pad.x < 0.0 && !b) {
+		int gh = 10;
+	}
+
 	if (pad.povForward.clicked) {
 	//	_movingDirection = "Up";
 		_acceY -= acceVal;

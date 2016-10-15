@@ -80,7 +80,7 @@ SceneBase* Game::update()
 		it->update(player);
 	}
 
-	if (detectGameEnd()) {
+	if (detectGameEnd()) {*
 		end_frame++;
 		if (end_frame > 3000) {
 			return new Clear(player.size(), searchWinner(player));
